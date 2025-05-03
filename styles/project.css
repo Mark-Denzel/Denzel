@@ -1,0 +1,344 @@
+#project {
+    max-width: 800px;
+    margin: 0 auto;
+    color: #CDE6EA;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+.project-title {
+    font-family: 'Playfair Display', serif;
+    color: #a0e7ff;
+    font-size: 40px;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    white-space: nowrap;
+}
+
+.project-title::after {
+    content: " ";
+    display: inline-block;
+    position: relative;
+    top: 20px;
+    width: 100%;
+    height: 3px;
+    margin-left: 15px;
+    background-color: rgba(160, 231, 255, 0.5);
+}
+
+.projects-wrapper {
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 30px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.project-carousel {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    min-height: 400px;
+    background-color: rgba(50, 50, 93, 0.5);
+    border: 1px solid rgba(72, 180, 198, 0.2);
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    padding: 20px 0;
+}
+
+.carousel-track {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    width: 100%;
+    height: 100%;
+}
+
+.project-container {
+    padding: 5px;
+    min-width: 100%;
+    box-sizing: border-box;
+    transition: opacity 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    text-align: center;
+    height: 100%;
+    position: relative;
+}
+
+.project-container h2 {
+    font-family: 'Playfair Display', serif;
+    color: #48B4C6;
+    font-size: 16px;
+    margin-bottom: 15px;
+    padding: 0 20px;
+}
+
+.project-container p {
+    font-family: 'Lato', sans-serif;
+    line-height: 1.6;
+    font-size: 13px;
+    margin-bottom: 20px;
+    padding: 0 20px;
+}
+
+.description {
+    padding-top: 200px;
+    position: relative;
+    z-index: 1;
+    width: 100%;
+}
+
+.nav-arrow {
+    background-color: transparent;
+    color: #88D1DA;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    z-index: 10;
+    transition: all 0.3s ease;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    background-color: rgba(16, 45, 51, 0.7);
+}
+
+.nav-arrow:hover {
+    background-color: #1a474f;
+    transform: translateY(-50%) scale(1.1);
+}
+
+.prev-arrow {
+    left: 20px;
+}
+
+.next-arrow {
+    right: 20px;
+}
+
+.carousel-indicators {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 8px;
+}
+
+.indicator {
+    cursor: pointer;
+    width: 35px;
+    height: 2px;
+    background-color: rgba(16, 45, 51, 0.7);
+    transition: all 0.3s ease;
+}
+
+.indicator.active {
+    background-color: rgba(72, 180, 198, 1);
+    transform: scale(1.2);
+}
+
+.video-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 1;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: z-index 0.3s ease;
+}
+
+.project-container:hover .video-background {
+    z-index: 2;
+}
+
+.video-background video {
+    height: auto;
+    width: auto;
+    max-height: 100%;
+    max-width: 100%;
+    opacity: 0.2;
+    transition: opacity 0.5s ease;
+    object-fit: contain;
+}
+
+.project-container:hover .video-background video {
+    opacity: 1;
+}
+
+
+.flipcard-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+  }
+  
+  .flipcard-form input,
+  .flipcard-form textarea {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+  }
+  
+  .flipcard-form textarea {
+    resize: vertical;
+    min-height: 80px;
+  }
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .project-title {
+        font-size: 32px;
+        white-space: normal;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .project-title::after {
+        width: 100%;
+        margin-left: 0;
+        margin-top: 10px;
+    }
+    
+    .project-carousel {
+        min-height: 350px;
+    }
+    
+    .description {
+        padding-top: 150px;
+    }
+    
+    .nav-arrow {
+        width: 35px;
+        height: 35px;
+        font-size: 16px;
+    }
+    
+    .prev-arrow {
+        left: 10px;
+    }
+    
+    .next-arrow {
+        right: 10px;
+    }
+    
+    .project-container h2 {
+        font-size: 15px;
+    }
+    
+    .project-container p {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 576px) {
+    #project {
+        padding: 0 15px;
+    }
+    
+    .project-title {
+        font-size: 28px;
+        margin-bottom: 20px;
+    }
+    
+    .project-carousel {
+        min-height: 300px;
+        padding: 15px 0;
+    }
+    
+    .description {
+        padding-top: 120px;
+    }
+    
+    .nav-arrow {
+        width: 30px;
+        height: 30px;
+        font-size: 14px;
+    }
+
+    .carousel-indicators {
+        margin-top: 15px;
+        gap: 6px;
+    }
+    
+    .indicator {
+        width: 25px;
+    }
+    
+    .video-background video {
+        opacity: 0.1;
+    }
+}
+
+@media (max-width: 480px) {
+    .project-title {
+        font-size: 24px;
+    }
+    
+    .project-container {
+        padding: 0;
+    }
+    
+    .project-container h2 {
+        font-size: 14px;
+        margin-bottom: 10px;
+        padding: 0 15px;
+    }
+    
+    .project-container p {
+        font-size: 11px;
+        margin-bottom: 15px;
+        padding: 0 15px;
+    }
+    
+    .description {
+        padding-top: 100px;
+    }
+    
+    .carousel-indicators {
+        margin-top: 10px;
+    }
+    
+    .indicator {
+        width: 20px;
+        height: 2px;
+    }
+}
+
+@media (max-width: 400px) {
+    .project-title {
+        font-size: 22px;
+    }
+    
+    .project-carousel {
+        min-height: 280px;
+    }
+    
+    .description {
+        padding-top: 80px;
+    }
+    
+    .nav-arrow {
+        width: 25px;
+        height: 25px;
+        font-size: 12px;
+    }
+}

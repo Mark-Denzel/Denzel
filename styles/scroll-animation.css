@@ -1,0 +1,61 @@
+html {
+    scroll-behavior: smooth;
+  }
+  
+  nav a.active {
+    color: #48B4C6;
+  }
+  
+  .scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background: linear-gradient(to right, #48B4C6, #80c1cc);
+    width: 0%;
+    z-index: 9999;
+    transition: width 0.1s ease-out;
+  }
+  
+  .section-hidden {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  
+  .section-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .animate-element {
+    animation: fadePopIn 0.6s ease-out forwards;
+  }
+  
+  .popup-element {
+    animation: fadePopIn 0.5s ease-out forwards;
+  }
+  
+  @keyframes fadePopIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px) scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+  
+  .section-visible > * {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadePopIn 0.5s ease-out forwards;
+  }
+  
+  .section-visible > *:nth-child(1) { animation-delay: 0.1s; }
+  .section-visible > *:nth-child(2) { animation-delay: 0.2s; }
+  .section-visible > *:nth-child(3) { animation-delay: 0.3s; }
+  .section-visible > *:nth-child(4) { animation-delay: 0.4s; }
+  .section-visible > *:nth-child(5) { animation-delay: 0.5s; }
+  .section-visible > *:nth-child(n+6) { animation-delay: 0.6s; }

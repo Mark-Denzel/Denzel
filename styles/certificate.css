@@ -1,0 +1,137 @@
+#certificate {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    color: #CDE6EA;
+    box-sizing: border-box;
+}
+
+.certificate-title {
+    font-family: 'Playfair Display', serif;
+    color: #a0e7ff;
+    font-size: 40px;
+    margin-bottom: 50px;
+    margin-top: 40px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.certificate-title::after {
+    content: " ";
+    display: inline-block;
+    position: relative;
+    top: 20px;
+    width: 100%;
+    height: 3px;
+    margin-left: 15px;
+    background-color: rgba(160, 231, 255, 0.5);
+}
+.certificate-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.certificate-item {
+    flex: 1;
+    min-width: 400px;
+    max-width: 500px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.certificate-img {
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+    width: 100%;
+    height: auto;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.certificate-img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+.certificate-img:active {
+    transform: scale(1.03);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+}
+.certificate-img.tapped {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 900px) {
+    .certificate-title::after {
+        width: 60%;
+    }
+    
+    .certificate-item {
+        min-width: 350px;
+    }
+}
+
+@media (max-width: 768px) {
+    #certificate {
+        padding: 30px 15px;
+    }
+    
+    .certificate-title {
+        font-size: 32px;
+        flex-direction: column;
+        align-items: flex-start;
+        white-space: normal;
+        margin-bottom: 30px;
+    }
+    
+    .certificate-title::after {
+        width: 100%;
+        margin-left: 0;
+        margin-top: 10px;
+    }
+    
+    .certificate-container {
+        gap: 15px;
+    }
+    
+    .certificate-item {
+        min-width: 100%;
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 576px) {
+    .certificate-title {
+        font-size: 28px;
+        margin-bottom: 25px;
+    }
+    
+    #certificate {
+        padding: 25px 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .certificate-title {
+        font-size: 24px;
+    }
+    
+    .certificate-title::after {
+        height: 2px;
+    }
+}
+
+@media (max-width: 400px) {
+    .certificate-title {
+        font-size: 22px;
+        margin-bottom: 20px;
+    }
+    
+    #certificate {
+        padding: 20px 10px;
+    }
+}
