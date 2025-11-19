@@ -5,23 +5,36 @@ document.addEventListener('DOMContentLoaded', function() {
     const prevBtn = document.querySelector('.prev-arrow');
     const nextBtn = document.querySelector('.next-arrow');
     let currentIndex = 0;
-    const containerWidth = containers[0].clientWidth;
     
     function updateCarousel() {
+        const containerWidth = containers[0].clientWidth;
         track.style.transform = `translateX(-${currentIndex * containerWidth}px)`;
-        
+
         indicators.forEach((indicator, index) => {
             indicator.classList.toggle('active', index === currentIndex);
         });
-        
+
         containers.forEach((container, index) => {
             if (index === currentIndex) {
                 container.classList.add('active');
             } else {
                 container.classList.remove('active');
-                // Reset zoom when switching projects
+                // Reset zoom and pause when switching projects
                 const videoBg = container.querySelector('.video-background');
-                if (videoBg) videoBg.classList.remove('zoomed-out');
+                if (videoBg) videoBg.classList.remove('zoomed-out', 'is-fullscreen');
+                const videoEl = container.querySelector('video');
+                if (videoEl) {
+                    // If this video is currently fullscreen, exit fullscreen
+                    if (document.fullscreenElement === videoEl) {
+                        if (document.exitFullscreen) document.exitFullscreen();
+                    }
+                    if (!videoEl.paused) {
+                        videoEl.pause();
+                    }
+                }
+                // Remove any leftover overlay
+                const existingOverlay = document.querySelector('.video-overlay');
+                if (existingOverlay) existingOverlay.remove();
             }
         });
     }
@@ -47,56 +60,146 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Video zoom effect
-// Modify the click handler in your existing code
-containers.forEach(container => {
-    container.addEventListener('click', function(e) {
-        if (container.classList.contains('active') && 
-            !e.target.closest('.nav-arrow') && 
-            !e.target.closest('.indicator')) {
-            
-            const videoBg = container.querySelector('.video-background');
-            if (videoBg) {
-                // Close any other zoomed videos first
-                document.querySelectorAll('.video-background.zoomed-out').forEach(bg => {
-                    if (bg !== videoBg) bg.classList.remove('zoomed-out');
-                });
-                
-                // Toggle current video
-                videoBg.classList.toggle('zoomed-out');
-                
-                // Optional: Add overlay when zoomed
-                const overlay = document.createElement('div');
-                overlay.className = 'video-overlay';
-                
-                if (videoBg.classList.contains('zoomed-out')) {
-                    // Create and append overlay
-                    document.body.appendChild(overlay);
-                    overlay.addEventListener('click', () => {
-                        videoBg.classList.remove('zoomed-out');
-                        overlay.remove();
-                    });
-                    
-                    // Play video
-                    const video = videoBg.querySelector('video');
-                    if (video) video.play();
-                } else {
-                    // Remove overlay if exists
-                    const existingOverlay = document.querySelector('.video-overlay');
-                    if (existingOverlay) existingOverlay.remove();
-                    
-                    // Pause video
-                    const video = videoBg.querySelector('video');
-                    if (video) video.pause();
-                }
+    // Videos should not toggle/zoom when clicking the project container.
+    // Enlarge/zoom behavior is only available via the fullscreen/enlarge buttons.
+    
+    // Video controls: mute, fullscreen, and progress handling
+    containers.forEach(container => {
+        const video = container.querySelector('video');
+        if (!video) return;
+
+        const videoBg = container.querySelector('.video-background');
+        const progressFill = container.querySelector('.progress-fill');
+        const progressBar = container.querySelector('.video-status .progress');
+        const timeEl = container.querySelector('.video-status .time');
+        const muteBtn = container.querySelector('.mute-btn');
+        const fullscreenBtn = container.querySelector('.fullscreen-btn');
+
+        const formatTime = (t) => {
+            if (!isFinite(t)) return '0:00';
+            const m = Math.floor(t / 60);
+            const s = Math.floor(t % 60).toString().padStart(2, '0');
+            return `${m}:${s}`;
+        };
+
+        // Update progress UI as the video plays
+        video.addEventListener('timeupdate', () => {
+            if (progressFill && video.duration) {
+                const pct = (video.currentTime / video.duration) * 100 || 0;
+                progressFill.style.width = `${pct}%`;
             }
+            if (timeEl && video.duration) {
+                timeEl.textContent = `${formatTime(video.currentTime)} / ${formatTime(video.duration)}`;
+            }
+        });
+
+        // When metadata loads, set duration text
+        video.addEventListener('loadedmetadata', () => {
+            if (timeEl && video.duration) {
+                timeEl.textContent = `0:00 / ${formatTime(video.duration)}`;
+            }
+        });
+
+        // Seek by clicking progress bar
+        if (progressBar) {
+            progressBar.addEventListener('click', (e) => {
+                const rect = progressBar.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const pct = Math.max(0, Math.min(1, x / rect.width));
+                if (video.duration) video.currentTime = pct * video.duration;
+            });
+        }
+
+        // Mute/unmute
+        if (muteBtn) {
+            muteBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                video.muted = !video.muted;
+                const icon = muteBtn.querySelector('i');
+                if (icon) {
+                    icon.classList.toggle('fa-volume-xmark', video.muted);
+                    icon.classList.toggle('fa-volume-high', !video.muted);
+                }
+            });
+        }
+
+        // Fullscreen handler
+        if (fullscreenBtn) {
+            fullscreenBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const el = video;
+                if (el.requestFullscreen) {
+                    el.requestFullscreen();
+                } else if (el.webkitEnterFullscreen) {
+                    // iOS Safari
+                    el.webkitEnterFullscreen();
+                }
+            });
+
+            // Update icon and add 'is-fullscreen' class on the container when fullscreen changes
+            document.addEventListener('fullscreenchange', () => {
+                const icon = fullscreenBtn.querySelector('i');
+                if (!icon) return;
+                if (document.fullscreenElement === video) {
+                    icon.classList.remove('fa-expand');
+                    icon.classList.add('fa-compress');
+                    if (videoBg) videoBg.classList.add('is-fullscreen');
+                } else {
+                    icon.classList.remove('fa-compress');
+                    icon.classList.add('fa-expand');
+                    if (videoBg) videoBg.classList.remove('is-fullscreen');
+                }
+            });
         }
     });
-});
     
-    // Handle window resize
+    // Handle window resize: recompute widths and re-render carousel
     window.addEventListener('resize', function() {
-        const newContainerWidth = containers[0].clientWidth;
-        track.style.transform = `translateX(-${currentIndex * newContainerWidth}px)`;
+        updateCarousel();
     });
+
+    // Pause all videos when the whole Projects section is out of view,
+    // and autoplay/pause individual videos when their container is visible.
+    const projectSection = document.getElementById('project');
+    if (projectSection) {
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) {
+                    // Section left the viewport: pause all videos and remove fullscreen/zoom classes
+                    containers.forEach(c => {
+                        const v = c.querySelector('video');
+                        if (v && !v.paused) v.pause();
+                        const vb = c.querySelector('.video-background');
+                        if (vb) vb.classList.remove('zoomed-out', 'is-fullscreen');
+                    });
+                    const existingOverlay = document.querySelector('.video-overlay');
+                    if (existingOverlay) existingOverlay.remove();
+                }
+            });
+        }, { threshold: 0.05 });
+        sectionObserver.observe(projectSection);
+    }
+
+    // Observe each project container for visibility to autoplay/pause its video
+    const visibilityObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            const container = entry.target;
+            const video = container.querySelector('video');
+            if (!video) return;
+
+            // If container is mostly visible, play; otherwise pause
+            if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
+                // Play if not already playing
+                if (video.paused) {
+                    video.play().catch(() => {});
+                }
+            } else {
+                if (!video.paused) {
+                    video.pause();
+                }
+            }
+        });
+    }, { threshold: [0, 0.25, 0.5, 0.75, 1] });
+
+    containers.forEach(container => visibilityObserver.observe(container));
 });
