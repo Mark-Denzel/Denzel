@@ -285,28 +285,73 @@
                     <button class="nav-arrow prev-arrow">&#10094;</button>
                     
                     <div class="carousel-track">
-                        <div class="project-container smartbites">
-                            <a href="https://github.com/nieroglyph/Smartbites" target="_blank" style="text-decoration: none; display: block;">
-                                <div class="video-background">
-                                    <video autoplay loop muted playsinline>
-                                        <source src="vid/smartbites_demo.mp4" type="video/mp4">
-                                        Your browser does not support the video tag.
-                                    </video>
+                        <!-- New first project: TORTOL AD -->
+                        <div class="project-container tortol">
+                            <div class="video-background">
+                                <video autoplay loop muted playsinline>
+                                    <source src="vid/TORTOL AD.mp4" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                                <div class="video-status">
+                                    <div class="progress" aria-hidden="true">
+                                        <div class="progress-fill"></div>
+                                    </div>
+                                    <div class="time">0:00 / 0:00</div>
                                 </div>
+                                <div class="video-controls">
+                                    <button class="mute-btn" aria-label="Mute/Unmute"><i class="fas fa-volume-xmark"></i></button>
+                                    <button class="fullscreen-btn" aria-label="Enlarge video"><i class="fas fa-expand"></i></button>
+                                </div>
+                            </div>
+                            <div class="description">
+                                <h2>TORTOL</h2>
+                                <p>TORTOL (Threat Observation and Response Technology for Overflow Locations) is an IoT-powered flood monitoring and early warning system that uses wireless sensors to track water levels, transmit real-time data to a cloud dashboard, analyze and predict flood risks, send automated alerts, and store historical data for long-term flood pattern analysis.</p>
+                                <p style="color: #557980; font-family: 'lato', sans-serif;">React.js,Python</p>
+                            </div>
+                        </div>
+
+                        <!-- Existing project: SmartBites -->
+                        <div class="project-container smartbites">
+                            <div class="video-background">
+                                    <video autoplay loop muted playsinline>
+                                    <source src="vid/smartbites_demo.mp4" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                                    <div class="video-status">
+                                        <div class="progress" aria-hidden="true">
+                                            <div class="progress-fill"></div>
+                                        </div>
+                                        <div class="time">0:00 / 0:00</div>
+                                    </div>
+                                    <div class="video-controls">
+                                        <button class="mute-btn" aria-label="Mute/Unmute"><i class="fas fa-volume-xmark"></i></button>
+                                        <button class="fullscreen-btn" aria-label="Enlarge video"><i class="fas fa-expand"></i></button>
+                                    </div>
+                            </div>
                             <div class="description">
                                 <h2>SmartBites</h2>
                                 <p>SmartBites is an AI-powered mobile app that provides personalized, healthy meal plans and recipe suggestions using image recognition and chat-based interaction.</p>
                                 <p style="color: #557980; font-family: 'lato', sans-serif;">React.js, Python, MySQL</p>
                             </div>
-                            </a>
                         </div>
-                        
+
+                        <!-- Existing project: D.A.R.T.S. -->
                         <div class="project-container darts">
                             <div class="video-background">
-                                <video autoplay loop muted playsinline>
+                                    <video autoplay loop muted playsinline>
                                     <source src="vid/darts_demo.mp4" type="video/mp4">
                                     Your browser does not support the video tag.
                                 </video>
+                                <div class="video-status">
+                                    <div class="progress" aria-hidden="true">
+                                        <div class="progress-fill"></div>
+                                    </div>
+                                    <div class="time">0:00 / 0:00</div>
+                                </div>
+                                <div class="video-controls">
+                                    <button class="mute-btn" aria-label="Mute/Unmute"><i class="fas fa-volume-xmark"></i></button>
+                                    <button class="fullscreen-btn" aria-label="Enlarge video"><i class="fas fa-expand"></i></button>
+                                </div>
                             </div>
                             <div class="description">
                                 <h2>D.A.R.T.S.</h2>
@@ -323,6 +368,7 @@
             <div class="carousel-indicators">
                 <div class="indicator active" data-index="0"></div>
                 <div class="indicator" data-index="1"></div>
+                <div class="indicator" data-index="2"></div>
             </div>
         </section>
 
@@ -330,10 +376,14 @@
             <h1 class="certificate-title">Certificates</h1>
             <div class="certificate-container">
                 <div class="certificate-item">
-                    <img src="img/certificate/cloud_certificate.png" alt="Cloud Certificate" class="certificate-img">
+                    <a href="https://www.credly.com/badges/5309493f-f397-4c8e-a764-fa7be9b0e372/public_url" target="_blank" rel="noopener noreferrer" aria-label="View CompTIA badge on Credly" title="View CompTIA badge on Credly">
+                        <img src="img/certificate/cloud_certificate.png" alt="CompTIA Certificate" class="certificate-img">
+                    </a>
                 </div>
                 <div class="certificate-item">
-                    <img src="img/certificate/python_certificate.png" alt="Python Certificate" class="certificate-img">
+                    <a href="https://www.credly.com/badges/4d3e0e84-a618-4bc3-969b-14ae099ba495/public_url" target="_blank" rel="noopener noreferrer" aria-label="View Python badge on Credly" title="View Python badge on Credly">
+                        <img src="img/certificate/python_certificate.png" alt="Python Certificate" class="certificate-img">
+                    </a>
                 </div>
             </div>
         </section>
@@ -412,7 +462,7 @@
             <p>Designed and Developed by <a href="#">Mark Denzel Permison</a></p>
         </div>
         <div class="cv-button-container">
-        <a href="Mark_Denzel_Permison_Resume.pdf" download class="cv-button">
+        <a href="Permison_Resume.pdf" download class="cv-button">
             <i class="fas fa-file-download"></i>
             <span>Download Resume</span>
         </a>
